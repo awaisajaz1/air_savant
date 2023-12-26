@@ -21,11 +21,11 @@ The project is designed with the following tools:
 - **Language**: We use Python above 3.9, we would need walrus operators to pick chunk of data in smaller server configurations.
 - **Environment**: containerization with python virtual environment is a old love that help us to avoid any dependencies conflicts with base operating system. 
 - **Data Source**: We use `randomuser.me` API to generate random user data for our pipeline.
-- **Apache Airflow**: Responsible for orchestrating the pipeline and storing fetched data in a PostgreSQL database.
-- **Apache Kafka and Zookeeper**: Used for streaming data from PostgreSQL to the processing engine.
-- **Control Center and Schema Registry**: Helps in monitoring and schema management of our Kafka streams.
+- **Apache Airflow**: Responsible for orchestrating the pipeline and storing fetched data in a PostgreSQL/MYSQL etc. databases.
+- **Apache Kafka and Zookeeper**: streaming data from PostgreSQL to the processing engine like spark, nifi etc.
+- **Control Center and Schema Registry**: schema management of our Kafka streams.
 - **Apache Spark**: For data processing with its master and worker nodes.
-- **MYSQL**: Where the processed data will be stored.
+- **MYSQL**: Where the curated data will be stored.
 - **Visualizatiob**: You can pick tool to start with but my recommendation will be eithe use apache superset or metabase, both are open source and easy to deploy in anny machine.
 
 ## What You'll Learn
@@ -33,8 +33,8 @@ The project is designed with the following tools:
 - Setting up a data pipeline with Apache Airflow
 - Real-time data streaming with Apache Kafka
 - Distributed synchronization with Apache Zookeeper
-- Data processing techniques with Apache Spark
-- Data storage solutions with Cassandra and PostgreSQL
+- Basic Data processing techniques with Apache Spark
+- Data storage solutions with MYSQL, PostgreSQL etc.
 - Containerizing your entire data engineering setup with Docker
 
 ## Technologies
