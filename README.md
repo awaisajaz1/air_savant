@@ -1,7 +1,7 @@
 # Realtime API DATA Streaming | Holistic Data Engineering Project
 
 ## Table of Contents
-- [Tnception](#introduction)
+- [Inception](#introduction)
 - [Solution Architecture](#solution-architecture)
 - [What You'll Learn](#what-youll-learn)
 - [Technologies](#technologies)
