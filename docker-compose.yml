@@ -103,27 +103,10 @@ services:
       timeout: 10s
       retries: 5
 
-  postgres:
-      image: postgres:14.0
-      volumes:
-        - ./shell_scripts/docker_postgresql_multiple_databases.sh:/opt/airflow/shell_scripts/docker-entrypoint-initdb.d
-      environment:
-        - POSTGRES_MULTIPLE_DATABASES=airflow,postgres:db2,postgres:db3,postgres
-        - POSTGRES_PASSWORD=airflow
-        - POSTGRES_DB=airflow
-      ports:
-        - "5432:5432"
-      logging:
-        options:
-          max-size: 10m
-          max-file: "3"
-      networks:
-        - confluent
-
   webserver:
     image: apache/airflow:2.6.0-python3.9
     command: webserver
-    entrypoint: ['/opt/airflow/shell_scripts/initialize.sh']
+    entrypoint: ['/opt/airflow/script/entrypoint.sh']
     depends_on:
       - postgres
     environment:
@@ -137,7 +120,7 @@ services:
         max-file: "3"
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./shell_scripts/initialize.sh:/opt/airflow/shell_scripts/initialize.sh
+      - ./script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./requirements.txt:/opt/airflow/requirements.txt
     ports:
       - "8080:8080"
@@ -156,7 +139,7 @@ services:
         condition: service_healthy
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./shell_scripts/initialize.sh:/opt/airflow/shell_scripts/initialize.sh
+      - ./script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./requirements.txt:/opt/airflow/requirements.txt
     environment:
       - LOAD_EX=n
@@ -167,6 +150,21 @@ services:
     networks:
       - confluent
 
+  postgres:
+    image: postgres:14.0
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+      - POSTGRES_PORT=5432
+    ports:
+      - "5432:5432"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    networks:
+      - confluent
 
   spark-master:
     image: bitnami/spark:latest
@@ -189,18 +187,5 @@ services:
     networks:
       - confluent
 
-  db:
-    image: cassandra:latest
-    container_name: cassandra
-    hostname: cassandra
-    ports:
-      - "9042:9042"
-    environment:
-      - MAX_HEAP_SIZE=512M
-      - HEAP_NEWSIZE=100M
-      - CASSANDRA_USERNAME=cassandra
-      - CASSANDRA_PASSWORD=cassandra
-    networks:
-      - confluent
 networks:
   confluent:
