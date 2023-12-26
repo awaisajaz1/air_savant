@@ -1,11 +1,12 @@
 # Realtime API DATA Streaming | Holistic Data Engineering Project
 
 ## Table of Contents
-- [Introduction](#introduction)
+- [Tnception](#introduction)
 - [Solution Architecture](#solution-architecture)
 - [What You'll Learn](#what-youll-learn)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
+- [Conclusion](#Conclusion)
 
 ## Introduction
 
@@ -85,3 +86,6 @@ The project is designed with the following tools:
    ```bash
    docker container ls -a
    ```
+
+## Conclusion
+This initiative aims to facilitate newcomers and novices in grasping the integration of diverse data engineering tools and data processing methodologies.
