@@ -18,6 +18,8 @@ This project gives out as a component guide for building an end-to-end data engi
 
 The project is designed with the following tools:
 
+- **Language**: We use Python above 3.9, we would need walrus operators to pick chunk of data in smaller server configurations.
+- **Environment**: containerization with python virtual environment is a old love that help us to avoid any dependencies conflicts with base operating system. 
 - **Data Source**: We use `randomuser.me` API to generate random user data for our pipeline.
 - **Apache Airflow**: Responsible for orchestrating the pipeline and storing fetched data in a PostgreSQL database.
 - **Apache Kafka and Zookeeper**: Used for streaming data from PostgreSQL to the processing engine.
