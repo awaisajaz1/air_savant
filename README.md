@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [System Architecture](#system-architecture)
+- [Solution Architecture](#solution-architecture)
 - [What You'll Learn](#what-youll-learn)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
@@ -13,7 +13,7 @@ This project gives out as a component guide for building an end-to-end data engi
 
 ## System Architecture
 
-![System Architecture](https://github.com/awaisajaz1/air_savant/blob/main/DE%20Architecture.png)
+![Solution Architecture](https://github.com/awaisajaz1/air_savant/blob/main/DE%20Architecture.png)
 
 
 The project is designed with the following tools:
