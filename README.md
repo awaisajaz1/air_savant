@@ -6,7 +6,6 @@
 - [What You'll Learn](#what-youll-learn)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
-- [Watch the Video Tutorial](#watch-the-video-tutorial)
 
 ## Introduction
 
@@ -17,14 +16,14 @@ This project gives out as a component guide for building an end-to-end data engi
 ![System Architecture](https://github.com/awaisajaz1/air_savant/blob/main/DE%20Architecture.png)
 
 
-The project is designed with the following components:
+The project is designed with the following tools:
 
 - **Data Source**: We use `randomuser.me` API to generate random user data for our pipeline.
 - **Apache Airflow**: Responsible for orchestrating the pipeline and storing fetched data in a PostgreSQL database.
 - **Apache Kafka and Zookeeper**: Used for streaming data from PostgreSQL to the processing engine.
 - **Control Center and Schema Registry**: Helps in monitoring and schema management of our Kafka streams.
 - **Apache Spark**: For data processing with its master and worker nodes.
-- **Cassandra**: Where the processed data will be stored.
+- **MYSQL**: Where the processed data will be stored.
 
 ## What You'll Learn
 
@@ -42,7 +41,7 @@ The project is designed with the following components:
 - Apache Kafka
 - Apache Zookeeper
 - Apache Spark
-- Cassandra
+- MYSQL (You can use a tool of your choice to set up a target container)
 - PostgreSQL
 - Docker
 
@@ -50,21 +49,15 @@ The project is designed with the following components:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/airscholar/e2e-data-engineering.git
+    git clone git@github.com:awaisajaz1/air_savant.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd e2e-data-engineering
+    cd air_savant
     ```
 
 3. Run Docker Compose to spin up the services:
     ```bash
     docker-compose up
     ```
-
-For more detailed instructions, please check out the video tutorial linked below.
-
-## Watch the Video Tutorial
-
-For a complete walkthrough and practical demonstration, check out our [YouTube Video Tutorial](https://www.youtube.com/watch?v=GqAcTrqKcrY).
