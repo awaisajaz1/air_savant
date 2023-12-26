@@ -81,3 +81,7 @@ The project is designed with the following tools:
     ```bash
     docker-compose up
     ```
+7. List all containers:
+   ```bash
+   docker container ls -a
+   ```
