@@ -10,11 +10,12 @@
 
 ## Introduction
 
-This project serves as a comprehensive guide for constructing an end-to-end data engineering pipeline. It encompasses each stage, from data ingestion and processing to storage, employing a robust tech stack that includes Apache Airflow, Python, Apache Kafka, Apache Zookeeper, Apache Spark, and fast databases like MySQL, Redshift, etc. All components are containerized using Docker for ease of deployment and scalability.
+This project gives out as a component guide for building an end-to-end data engineering pipeline for newbies. It encompasses each stage, from data ingestion and processing to storage, employing a robust tech stack that includes Apache Airflow, Python, Apache Kafka, Apache Zookeeper, Apache Spark, and fast databases like MySQL, Redshift, etc. All components are containerized using Docker for ease of deployment and scalability.
 
 ## System Architecture
 
-![System Architecture](https://github.com/airscholar/e2e-data-engineering/blob/main/Data%20engineering%20architecture.png)
+![System Architecture](https://github.com/awaisajaz1/air_savant/blob/main/DE%20Architecture.png)
+
 
 The project is designed with the following components:
 
