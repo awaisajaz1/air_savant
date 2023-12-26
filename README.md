@@ -50,33 +50,34 @@ The project is designed with the following tools:
 
 ## Getting Started
 
-1. Clone the repository:
+
+1. Using virtual environment  
+   To create a virtual environment in the virtual_env folder:
+   ```
+   python -m venv venv
+   ```
+   
+2. To activate the virtual environment
+   ```
+   .\venv\Scripts\activate
+   ```
+
+3. With the virtual environment activated we can install the packages in the requirements.txt file:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Clone the repository:
     ```bash
     git clone git@github.com:awaisajaz1/air_savant.git
     ```
 
-2. Navigate to the project directory:
+5. Navigate to the project directory:
     ```bash
     cd air_savant
     ```
 
-3. Run Docker Compose to spin up the services:
+6. Run Docker Compose to spin up the services:
     ```bash
     docker-compose up
     ```
-
-4. Using virtual environment  
-   To create a virtual environment in the virtual_env folder:
-   ```
-   python -m venv virtual_env
-   ```
-   
-5. To activate the virtual environment
-   ```
-   source virtual_env/bin/activate
-   ```
-
-6. With the virtual environment activated we can install the packages in the requirements.txt file:
-   ```
-   pip install -r requirements.txt
-   ```
