@@ -26,7 +26,7 @@ The project is designed with the following tools:
 - **Control Center and Schema Registry**: schema management of our Kafka streams.
 - **Apache Spark**: For data processing with its master and worker nodes.
 - **MYSQL**: Where the curated data will be stored.
-- **Visualizatiob**: You can pick tool to start with but my recommendation will be eithe use apache superset or metabase, both are open source and easy to deploy in anny machine.
+- **Visualization**: You can pick tool to start with but my recommendation will be eithe use ***apache superset*** or ***metabase***, both are open source and easy to deploy in anny machine.
 
 ## What You'll Learn
 
