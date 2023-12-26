@@ -1,4 +1,4 @@
-# Realtime API DATA Streaming | End-to-End Data Engineering Project
+# Realtime API DATA Streaming | Holistic Data Engineering Project
 
 ## Table of Contents
 - [Introduction](#introduction)
