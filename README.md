@@ -50,7 +50,7 @@ The project is designed with the following tools:
 
 ## Getting Started
 
-1. Using virtual environment
+1. Using virtual environment  
    To create a virtual environment in the virtual_env folder:
    ```
    python -m venv virtual_env
