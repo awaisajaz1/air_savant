@@ -3,11 +3,12 @@ import requests
 import datetime
 from kafka import KafkaProducer
 import time
-
+import random
+from datetime import datetime as dt
 
 # this is a mock/fake api for this streaming project but this is sufficient to test our expertise 
 api_url = "https://randomuser.me/api/"
-
+now = dt.now()  # current date and time
 
 # >> Below will be the json payload and its structure, lets understand this first so we can process this object to kafka streams
 # {
@@ -68,26 +69,47 @@ api_url = "https://randomuser.me/api/"
 # }
 
 
+# below will be addon to the api that we are using for realtime, just to add more attributes value randomly
+sensor_id = []
+sensor_type = ['RFID', 'Mobiles', 'Smart Watch', 'Mac Address', 'Tag']
+city_list = ['Makkah', 'Madinah']
 
+blood_group = ['A+', 'A-', 'B+', 'B-', 'O+', 'AB+']
+pulse_rate = [98,99,100,105,108,110,112]
+respiration_rate = [12,13,14,15,16,17,18]
+body_temperature = [97,98,99,100,101,102]
 
 def format_json_payload(json_payload):
     # lets extract the requi
     data = {}
+    # this will be random data generation
+    sensor_information = {}
+    sensor_selection = random.choice(sensor_type)
+    sensor_information['sensor_id'] = now.strftime("%m%d%Y%H%M%S%f") + '_' + sensor_selection
+    sensor_information['sensor_type'] = sensor_selection
+    
+    vital_signs = {}
+    vital_signs['blood_group'] = random.choice(blood_group)
+    vital_signs['pulse_rate'] = random.choice(pulse_rate)
+    vital_signs['respiration_rate'] = random.choice(respiration_rate)
+    vital_signs['body_temperature'] = random.choice(body_temperature)
+     
+    ts = time.time()
     data['first_name'] = json_payload['name']['first']
     data['last_name'] = json_payload['name']['last']
     data['gender'] = json_payload['gender']
     data['email'] = json_payload['email']
-    data['dob'] = json_payload['dob']
+    data['dob'] = json_payload['dob']['date']
     data['phone'] = json_payload['phone']
-    data['nat'] = json_payload['nat']
-    data['country'] = json_payload['location']['country']
-    data['state'] = json_payload['location']['state']
-    data['city'] = json_payload['location']['city']
-    data['postcode'] = json_payload['location']['postcode']
+    data['country'] = "KSA" #json_payload['location']['country']
+    data['city'] = random.choice(city_list) #json_payload['location']['city']
+    # data['postcode'] = json_payload['location']['postcode']
     data['street_number'] = json_payload['location']['street']['number']
+    data['sensor_data'] = sensor_information
+    data['vital_signs'] = vital_signs
     data['latitude'] = json_payload['location']['coordinates']['latitude']
     data['longitude'] = json_payload['location']['coordinates']['longitude']
-    data['insertion_timestamp'] = datetime.datetime.now.__str__()
+    data['insertion_timestamp'] = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     
     return data
     
@@ -110,7 +132,7 @@ def api_streaming():
         disinfected_streams = format_json_payload(source_json_dic) # you can use this fot your need, but i am leaving it here as we donot need this
 
         
-        return streams_subset
+        return disinfected_streams
 
 
 
@@ -118,14 +140,6 @@ def kafka_producer(streams):
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
     producer.send('users_stream', json.dumps(streams).encode('utf-8'))
     
-        
-        
-
-        
-    
-    
-
-
 
 kafka_producer(api_streaming())
     

@@ -120,7 +120,7 @@ services:
         max-file: "3"
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./shell_script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
+      - ./script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./requirements.txt:/opt/airflow/requirements.txt
     ports:
       - "8080:8080"
@@ -139,7 +139,7 @@ services:
         condition: service_healthy
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./shell_script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
+      - ./script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./requirements.txt:/opt/airflow/requirements.txt
     environment:
       - LOAD_EX=n
