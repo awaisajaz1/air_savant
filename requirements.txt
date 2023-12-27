@@ -133,3 +133,4 @@ Werkzeug==2.2.3
 wrapt==1.15.0
 WTForms==3.0.1
 yarl==1.9.2
+kafka-python
