@@ -1,0 +1,57 @@
+
+ {
+    "gender": "male",
+    "name": {
+       "title": "Monsieur",
+       "first": "Mohamed",
+       "last": "Morel"
+    },
+    "location": {
+       "street": {
+          "number": 964,
+          "name": "Rue de L'Abb\u00e9-Groult"
+       },
+       "city": "Dardagny",
+       "state": "Basel-Stadt",
+       "country": "Switzerland",
+       "postcode": 7797,
+       "coordinates": {
+          "latitude": "-60.8394",
+          "longitude": "-21.4748"
+       },
+       "timezone": {
+          "offset": "-6:00",
+          "description": "Central Time (US & Canada), Mexico City"
+       }
+    },
+    "email": "mohamed.morel@example.com",
+    "login": {
+       "uuid": "bb31832d-88ec-46a3-92f3-3f23c2c430d1",
+       "username": "yellowelephant323",
+       "password": "bigmike",
+       "salt": "GF5XzOpK",
+       "md5": "6ad81f7f14f54761b07bbd743d13f772",
+       "sha1": "b3156c41236bebf14045f4072c4fd6dbb4c132ad",
+       "sha256": "83a38a440e1b7fa99a2462e0899a7f0df5b9cc36f9c0750c7d32acaf331cbb44"
+    },
+    "dob": {
+       "date": "2000-03-27T10:52:01.931Z",
+       "age": 23
+    },
+    "registered": {
+       "date": "2005-08-04T21:34:30.507Z",
+       "age": 18
+    },
+    "phone": "075 721 08 07",
+    "cell": "075 851 16 48",
+    "id": {
+       "name": "AVS",
+       "value": "756.1148.8063.91"
+    },
+    "picture": {
+       "large": "https://randomuser.me/api/portraits/men/23.jpg",
+       "medium": "https://randomuser.me/api/portraits/med/men/23.jpg",
+       "thumbnail": "https://randomuser.me/api/portraits/thumb/men/23.jpg"
+    },
+    "nat": "CH"
+ }

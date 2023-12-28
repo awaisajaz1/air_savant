@@ -103,21 +103,10 @@ services:
       timeout: 10s
       retries: 5
 
-  postgres:
-    image: postgres:14.0
-    environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
-      POSTGRES_PORT: 5432
-    ports:
-      - "5432:5432"
-    networks:
-      - confluent
-
   webserver:
     image: apache/airflow:2.6.0-python3.9
-    restart: always
+    command: webserver
+    entrypoint: ['/opt/airflow/script/entrypoint.sh']
     depends_on:
       - postgres
     environment:
@@ -125,21 +114,23 @@ services:
       - EXECUTOR=Sequential
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./script/entrypoint.sh:/opt/airflow/script/entrypoint.sh
       - ./requirements.txt:/opt/airflow/requirements.txt
     ports:
       - "8080:8080"
-    command: webserver
-    entrypoint: ['/opt/airflow/script/entrypoint.sh']
     healthcheck:
-      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      test: ['CMD-SHELL', "[ -f /opt/airflow/airflow-webserver.pid ]"]
       interval: 30s
       timeout: 30s
-      retries: 3
+      retries: 5
     networks:
-      - confluent  
+      - confluent
 
   scheduler:
     image: apache/airflow:2.6.0-python3.9
@@ -156,6 +147,22 @@ services:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
     command: bash -c "pip install -r ./requirements.txt && airflow db upgrade && airflow scheduler"
+    networks:
+      - confluent
+
+  postgres:
+    image: postgres:14.0
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+      - POSTGRES_PORT=5432
+    ports:
+      - "5432:5432"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
     networks:
       - confluent
 

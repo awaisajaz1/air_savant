@@ -5,6 +5,7 @@
 - [Solution Architecture](#solution-architecture)
 - [What You'll Learn](#what-youll-learn)
 - [Technologies](#technologies)
+- [Important Links](#important-links)
 - [Getting Started](#getting-started)
 - [Conclusion](#Conclusion)
 
@@ -27,7 +28,7 @@ The project is designed with the following tools:
 - **Control Center and Schema Registry**: schema management of our Kafka streams.
 - **Apache Spark**: For data processing with its master and worker nodes.
 - **MYSQL**: Where the curated data will be stored.
-- **Visualization**: You can pick tool to start with but my recommendation will be either use ***apache superset*** or ***metabase***, both are open source and easy to deploy in anny machine.
+- **Visualization**: You can pick tool to start with but my recommendation will be either use ***apache superset*** or ***metabase***, both are open source and easy to deploy in any machine.
 
 ## What You'll Learn
 
@@ -48,6 +49,10 @@ The project is designed with the following tools:
 - MYSQL (You can use a tool of your choice to set up a target container)
 - PostgreSQL
 - Docker
+
+## Important Links
+- **Apache Airflow Dockerization:** https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html
+
 
 ## Getting Started
 
@@ -86,6 +91,9 @@ The project is designed with the following tools:
    ```bash
    docker container ls -a
    ```
+
+## Troubleshoot
+If you face the error ***entrypoint file not found*** then the solution is changing the entrypoint script file from CRLF -> LF.
 
 ## Conclusion
 This initiative aims to facilitate newcomers and novices in grasping the integration of diverse data engineering tools and data processing methodologies.
