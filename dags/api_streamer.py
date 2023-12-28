@@ -72,7 +72,6 @@ now = dt.now()  # current date and time
 # below will be addon to the api that we are using for realtime, just to add more attributes value randomly
 sensor_id = []
 sensor_type = ['RFID', 'Mobiles', 'Smart Watch', 'Mac Address', 'Tag']
-city_list = ['Makkah', 'Madinah']
 
 blood_group = ['A+', 'A-', 'B+', 'B-', 'O+', 'AB+']
 pulse_rate = [98,99,100,105,108,110,112]
@@ -101,9 +100,9 @@ def format_json_payload(json_payload):
     data['email'] = json_payload['email']
     data['dob'] = json_payload['dob']['date']
     data['phone'] = json_payload['phone']
-    data['country'] = "KSA" #json_payload['location']['country']
-    data['city'] = random.choice(city_list) #json_payload['location']['city']
-    # data['postcode'] = json_payload['location']['postcode']
+    data['country'] = json_payload['location']['country']
+    data['city'] = json_payload['location']['city']
+    data['postcode'] = json_payload['location']['postcode']
     data['street_number'] = json_payload['location']['street']['number']
     data['sensor_data'] = sensor_information
     data['vital_signs'] = vital_signs
@@ -138,8 +137,13 @@ def api_streaming():
 
 def kafka_producer(streams):
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
-    producer.send('users_stream', json.dumps(streams).encode('utf-8'))
+    producer.send('crowd_realtime_stream', json.dumps(streams).encode('utf-8'))
     
 
-kafka_producer(api_streaming())
+
+### Code is being written and and for the sake of testing i am using sleep for scheduling, it will lift to airflow
+secs = [1,2,3]
+while True:
+    time.sleep(random.choice(secs))
+    kafka_producer(api_streaming())
     
