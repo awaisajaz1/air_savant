@@ -6,73 +6,25 @@ import time
 import random
 from datetime import datetime as dt
 
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+
 # this is a mock/fake api for this streaming project but this is sufficient to test our expertise 
 api_url = "https://randomuser.me/api/"
 now = dt.now()  # current date and time
 
-# >> Below will be the json payload and its structure, lets understand this first so we can process this object to kafka streams
-# {
-#    "gender": "male",
-#    "name": {
-#       "title": "Monsieur",
-#       "first": "Mohamed",
-#       "last": "Morel"
-#    },
-#    "location": {
-#       "street": {
-#          "number": 964,
-#          "name": "Rue de L'Abb\u00e9-Groult"
-#       },
-#       "city": "Dardagny",
-#       "state": "Basel-Stadt",
-#       "country": "Switzerland",
-#       "postcode": 7797,
-#       "coordinates": {
-#          "latitude": "-60.8394",
-#          "longitude": "-21.4748"
-#       },
-#       "timezone": {
-#          "offset": "-6:00",
-#          "description": "Central Time (US & Canada), Mexico City"
-#       }
-#    },
-#    "email": "mohamed.morel@example.com",
-#    "login": {
-#       "uuid": "bb31832d-88ec-46a3-92f3-3f23c2c430d1",
-#       "username": "yellowelephant323",
-#       "password": "bigmike",
-#       "salt": "GF5XzOpK",
-#       "md5": "6ad81f7f14f54761b07bbd743d13f772",
-#       "sha1": "b3156c41236bebf14045f4072c4fd6dbb4c132ad",
-#       "sha256": "83a38a440e1b7fa99a2462e0899a7f0df5b9cc36f9c0750c7d32acaf331cbb44"
-#    },
-#    "dob": {
-#       "date": "2000-03-27T10:52:01.931Z",
-#       "age": 23
-#    },
-#    "registered": {
-#       "date": "2005-08-04T21:34:30.507Z",
-#       "age": 18
-#    },
-#    "phone": "075 721 08 07",
-#    "cell": "075 851 16 48",
-#    "id": {
-#       "name": "AVS",
-#       "value": "756.1148.8063.91"
-#    },
-#    "picture": {
-#       "large": "https://randomuser.me/api/portraits/men/23.jpg",
-#       "medium": "https://randomuser.me/api/portraits/med/men/23.jpg",
-#       "thumbnail": "https://randomuser.me/api/portraits/thumb/men/23.jpg"
-#    },
-#    "nat": "CH"
-# }
+
+default_args = { 
+    'owner': 'airsavant',
+    'start_date': dt(2023, 12, 28, 10, 00)  
+}
+
+
 
 
 # below will be addon to the api that we are using for realtime, just to add more attributes value randomly
 sensor_id = []
 sensor_type = ['RFID', 'Mobiles', 'Smart Watch', 'Mac Address', 'Tag']
-city_list = ['Makkah', 'Madinah']
 
 blood_group = ['A+', 'A-', 'B+', 'B-', 'O+', 'AB+']
 pulse_rate = [98,99,100,105,108,110,112]
@@ -101,9 +53,9 @@ def format_json_payload(json_payload):
     data['email'] = json_payload['email']
     data['dob'] = json_payload['dob']['date']
     data['phone'] = json_payload['phone']
-    data['country'] = "KSA" #json_payload['location']['country']
-    data['city'] = random.choice(city_list) #json_payload['location']['city']
-    # data['postcode'] = json_payload['location']['postcode']
+    data['country'] = json_payload['location']['country']
+    data['city'] = json_payload['location']['city']
+    data['postcode'] = json_payload['location']['postcode']
     data['street_number'] = json_payload['location']['street']['number']
     data['sensor_data'] = sensor_information
     data['vital_signs'] = vital_signs
@@ -136,10 +88,29 @@ def api_streaming():
 
 
 
-def kafka_producer(streams):
+def kafka_producer():
+    print("stream started!!")
+    streams = api_streaming()
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
-    producer.send('users_stream', json.dumps(streams).encode('utf-8'))
+    producer.send('crowd_realtime_stream', json.dumps(streams).encode('utf-8'))
     
 
-kafka_producer(api_streaming())
+# Create your first dag
+
+# with DAG('iot_user_data',
+#          default_args=default_args,
+#          schedule_interval='@daily',
+#          catchup=False
+#          ) as dag:
+    
+#     streatimg_task = PythonOperator(
+#         task_id='stream_from_api',
+#         python_callable=kafka_producer
+#     )
+
+### Code is being written and and for the sake of testing i am using sleep for scheduling, it will lift to airflow
+secs = [1,2,3]
+while True:
+    time.sleep(random.choice(secs))
+    kafka_producer()
     
