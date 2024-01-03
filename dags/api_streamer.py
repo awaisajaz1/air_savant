@@ -5,7 +5,6 @@ from kafka import KafkaProducer
 import time
 import random
 from datetime import datetime as dt
-
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
@@ -13,14 +12,10 @@ from airflow.operators.python import PythonOperator
 api_url = "https://randomuser.me/api/"
 now = dt.now()  # current date and time
 
-
 default_args = { 
     'owner': 'airsavant',
     'start_date': dt(2023, 12, 28, 10, 00)  
 }
-
-
-
 
 # below will be addon to the api that we are using for realtime, just to add more attributes value randomly
 sensor_id = []
@@ -66,7 +61,6 @@ def format_json_payload(json_payload):
     return data
     
 
-
 def api_streaming():
     streams = requests.get(api_url)
     if streams:
@@ -82,7 +76,6 @@ def api_streaming():
         
         # lets format the data and extract nested attributes
         disinfected_streams = format_json_payload(source_json_dic) # you can use this fot your need, but i am leaving it here as we donot need this
-
         
         return disinfected_streams
 
@@ -91,26 +84,30 @@ def api_streaming():
 def kafka_producer():
     print("stream started!!")
     streams = api_streaming()
-    producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
+    producer = KafkaProducer(bootstrap_servers=['0.0.0.0:9092'])
     producer.send('crowd_realtime_stream', json.dumps(streams).encode('utf-8'))
     
-
+def print_check():
+    print('airflow is flowing the air')
+    
+    
 # Create your first dag
 
-# with DAG('iot_user_data',
-#          default_args=default_args,
-#          schedule_interval='@daily',
-#          catchup=False
-#          ) as dag:
+with DAG('iot_user_data_task',
+         default_args=default_args,
+         schedule_interval='@daily',
+         catchup=False
+         ) as dag:
     
-#     streatimg_task = PythonOperator(
-#         task_id='stream_from_api',
-#         python_callable=kafka_producer
-#     )
+    streatimg_task = PythonOperator(
+        task_id='stream_from_api',
+        python_callable=kafka_producer
+    )
+
 
 ### Code is being written and and for the sake of testing i am using sleep for scheduling, it will lift to airflow
-secs = [1,2,3]
-while True:
-    time.sleep(random.choice(secs))
-    kafka_producer()
+# secs = [1,2,3]
+# while True:
+#     time.sleep(random.choice(secs))
+#     kafka_producer()
     
