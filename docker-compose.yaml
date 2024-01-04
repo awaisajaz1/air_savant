@@ -44,7 +44,7 @@ x-airflow-common:
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
   &airflow-common
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.3.3}
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.6.0-python3.9}
   # build: .
   environment:
     &airflow-common-env
@@ -64,6 +64,7 @@ x-airflow-common:
     - ./logs:/opt/airflow/logs
     - ./plugins:/opt/airflow/plugins
     - ./landings:/opt/airflow/landings
+    - ./requirements.txt:/opt/airflow/requirements.txt
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -91,7 +92,7 @@ services:
 
   airflow-webserver:
     <<: *airflow-common
-    command: bash -c "pip install -r ./requirements.txt && webserver"
+    command: bash -c "pip install -r /opt/airflow/requirements.txt && airflow webserver"
     ports:
       - 8080:8080
     healthcheck:
@@ -108,6 +109,10 @@ services:
     restart: always
     volumes:
     - ./requirements.txt:/opt/airflow/requirements.txt
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    - ./landings:/opt/airflow/landings
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -117,7 +122,7 @@ services:
 
   airflow-scheduler:
     <<: *airflow-common
-    command: bash -c "pip install -r ./requirements.txt && scheduler"
+    command: bash -c "pip install -r /opt/airflow/requirements.txt && airflow scheduler"
     healthcheck:
       test:
         [
@@ -130,6 +135,10 @@ services:
     restart: always
     volumes:
     - ./requirements.txt:/opt/airflow/requirements.txt
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    - ./landings:/opt/airflow/landings
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
