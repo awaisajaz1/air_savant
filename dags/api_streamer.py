@@ -84,7 +84,7 @@ def api_streaming():
 def kafka_producer():
     print("stream started!!")
     streams = api_streaming()
-    producer = KafkaProducer(bootstrap_servers=['0.0.0.0:9092'])
+    producer = KafkaProducer(bootstrap_servers=['broker:9092'], max_block_size=5000)
     producer.send('crowd_realtime_stream', json.dumps(streams).encode('utf-8'))
     
 def print_check():
@@ -103,7 +103,7 @@ with DAG('iot_user_data_task',
         task_id='stream_from_api',
         python_callable=kafka_producer
     )
-
+    
 
 ### Code is being written and and for the sake of testing i am using sleep for scheduling, it will lift to airflow
 # secs = [1,2,3]
