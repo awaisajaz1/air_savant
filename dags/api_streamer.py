@@ -14,7 +14,7 @@ now = dt.now()  # current date and time
 
 default_args = { 
     'owner': 'airsavant',
-    'start_date': dt(2023, 12, 28, 10, 00)  
+    'start_date': dt(2024, 1, 4, 10, 00)  
 }
 
 # below will be addon to the api that we are using for realtime, just to add more attributes value randomly
@@ -84,7 +84,7 @@ def api_streaming():
 def kafka_producer():
     print("stream started!!")
     streams = api_streaming()
-    producer = KafkaProducer(bootstrap_servers=['broker:9092'], max_block_size=5000)
+    producer = KafkaProducer(bootstrap_servers=['broker:29092'], max_block_ms=5000)
     producer.send('crowd_realtime_stream', json.dumps(streams).encode('utf-8'))
     
 def print_check():
@@ -93,17 +93,27 @@ def print_check():
     
 # Create your first dag
 
-with DAG('iot_user_data_task',
+dag =  DAG('iot_user_data_task',
          default_args=default_args,
          schedule_interval='@daily',
          catchup=False
-         ) as dag:
+         ) 
     
-    streatimg_task = PythonOperator(
-        task_id='stream_from_api',
-        python_callable=kafka_producer
-    )
+streatimg_task = PythonOperator(
+    task_id='stream_from_api',
+    python_callable=kafka_producer,
+    dag=dag
+)
+
+
+print_task = PythonOperator(
+    task_id='print_check',
+    python_callable=print_check,
+    dag=dag
+)
     
+
+streatimg_task.set_downstream(print_task)
 
 ### Code is being written and and for the sake of testing i am using sleep for scheduling, it will lift to airflow
 # secs = [1,2,3]
