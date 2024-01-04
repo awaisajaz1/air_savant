@@ -3,3 +3,4 @@ __pycache__
 .idea
 logs
 docker-compose_bckup*
+dockers_backup
