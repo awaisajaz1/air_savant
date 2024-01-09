@@ -27,7 +27,7 @@ respiration_rate = [12,13,14,15,16,17,18]
 body_temperature = [97,98,99,100,101,102]
 
 def format_json_payload(json_payload):
-    # lets extract the requi
+    # lets extract the required payload
     data = {}
     # this will be random data generation
     sensor_information = {}

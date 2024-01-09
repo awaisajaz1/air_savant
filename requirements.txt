@@ -98,7 +98,7 @@ pycparser==2.21
 pydantic==1.10.12
 Pygments==2.16.1
 PyJWT==2.8.0
-# pyspark==3.4.1
+pyspark==3.1.2
 python-daemon==3.0.1
 python-dateutil==2.8.2
 python-nvd3==0.15.0
@@ -133,4 +133,4 @@ Werkzeug==2.2.3
 wrapt==1.15.0
 WTForms==3.0.1
 yarl==1.9.2
-kafka-python
+# kafka-python
