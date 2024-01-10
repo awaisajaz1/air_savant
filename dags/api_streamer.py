@@ -4,7 +4,7 @@ import datetime
 from kafka import KafkaProducer
 import time
 import random
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
@@ -27,7 +27,7 @@ respiration_rate = [12,13,14,15,16,17,18]
 body_temperature = [97,98,99,100,101,102]
 
 def format_json_payload(json_payload):
-    # lets extract the requi
+    # lets extract the required payload
     data = {}
     # this will be random data generation
     sensor_information = {}
@@ -95,7 +95,7 @@ def print_check():
 
 dag =  DAG('iot_user_data_task',
          default_args=default_args,
-         schedule_interval='@daily',
+         schedule_interval=timedelta(seconds=10), #'@daily',
          catchup=False
          ) 
     

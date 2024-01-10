@@ -49,6 +49,7 @@ The project is designed with the following tools:
 - MYSQL (You can use a tool of your choice to set up a target container)
 - PostgreSQL
 - Docker
+- Kadeck/Kafka Tool (To visual the kafka topics)
 
 ## Important Links
 - **Apache Airflow Dockerization:** https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html
