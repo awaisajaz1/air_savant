@@ -11,7 +11,7 @@
 
 ## Introduction
 
-This project gives out as a component guide for building an end-to-end data engineering pipeline for newbies. It encompasses each stage, from data ingestion and processing to storage, employing a robust tech stack that includes Apache Airflow, Python, Apache Kafka, Apache Zookeeper, Apache Spark, and fast databases like MySQL, Redshift, etc. All components are containerized using Docker for ease of deployment and scalability.
+This project gives out as a component guide for building an end-to-end data engineering pipeline for newbies. It encompasses each stage, from data ingestion and processing to storage, employing a robust tech stack that includes Apache Airflow, Python, Apache Kafka, Apache Zookeeper, Apache Spark, and fast databases like PostgreSQL, Redshift, etc. All components are containerized using Docker for ease of deployment and scalability.
 
 ## Solution Architecture
 
@@ -27,7 +27,7 @@ The project is designed with the following tools:
 - **Apache Kafka and Zookeeper**: streaming data from PostgreSQL to the processing engine like spark, nifi etc.
 - **Control Center and Schema Registry**: schema management of our Kafka streams.
 - **Apache Spark**: For data processing with its master and worker nodes.
-- **MYSQL**: Where the curated data will be stored.
+- **PostgreSQL**: Where the curated data will be stored in real-time.
 - **Visualization**: You can pick tool to start with but my recommendation will be either use ***apache superset*** or ***metabase***, both are open source and easy to deploy in any machine.
 
 ## What You'll Learn
@@ -46,8 +46,8 @@ The project is designed with the following tools:
 - Apache Kafka
 - Apache Zookeeper
 - Apache Spark
-- MYSQL (You can use a tool of your choice to set up a target container)
-- PostgreSQL
+- MYSQL (Optional, Not being used in this demo)
+- PostgreSQL (You can use a tool of your choice to set up a target container)
 - Docker
 - Kadeck/Kafka Tool (To visual the kafka topics)
 
