@@ -32,8 +32,6 @@ def connect_kafka_cluster(spark_conn):
             .option('subscribe' , 'crowd_realtime_stream') \
             .option('startingOffsets' , 'earliest') \
             .load()
-       
-        
         logging.info("dataframe from kafak topic has been created!!!!")
     except Exception as e:
         logging.warning(f" It looks like soamething is wrong!!! : {e}")
@@ -94,9 +92,8 @@ def process_topic_payload(spark_df):
                     "api_data.vital_signs.body_temperature",
                     "api_data.latitude",
                     "api_data.longitude",
-                    "api_data.insertion_timestamp"
-                    )
-    
+                    "api_data.insertion_timestamp")
+            
     return df_selection
     
 
