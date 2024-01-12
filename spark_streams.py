@@ -5,6 +5,14 @@ from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StructField, StructType, StringType, DoubleType, TimestampType
 from pyspark.sql import DataFrameWriter
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path="./.env")
+db_ip_addrress = os.environ.get(f"DB_IP_ADDRRESS")
+db_port = os.environ.get(f"DB_PORT")
+db_user = os.environ.get(f"DB_USER")
+db_password = os.environ.get(f"DB_PASSWORD")
 # Create spark session
 def create_spark_session():
     s_session = None
@@ -119,10 +127,10 @@ if __name__ == "__main__":
             .format("jdbc") \
             .mode("append") \
             .option("driver", "org.postgresql.Driver") \
-            .option("url", f"jdbc:postgresql://127.0.0.1:5432/postgres") \
+            .option("url", f"jdbc:postgresql://{db_ip_addrress}:{db_port}/postgres") \
             .option("dbtable", "api_data") \
-            .option("user", "airflow") \
-            .option("password", "airflow") \
+            .option("user", f"{db_user}") \
+            .option("password", f"{db_password}") \
             .option("truncate", True) \
             .save()
 
